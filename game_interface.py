@@ -1,31 +1,40 @@
-from subtract_square import SubtractSquareGame
-from chopsticks import ChopsticksGame
+"""
+The module used to play our games.
+Please fill in the TODO's (i.e. importing games and strategies as needed)
+
+Note: You do not have to run python_ta on this file.
+You may import your games from A1 (i.e. Chopsticks). However, the minimax
+strategy cannot be used on Chopsticks unless you account for infinite loops.
+(You do not have to worry about this for the assignment: only do it for
+your own curiousity!)
+"""
+# TODO: import the modules needed to make game_interface run.
 from strategy import *
 from typing import Any, Callable
+from subtract_square_game import SubtractSquareGame
+from stonehenge import StonehengeGame
+from strategy import rough_outcome_strategy, recursive_minimax, \
+    iterative_minimax_strategy
 
-# 's' should map to your implementation of Subtract Square, and 'c' should map
-# to Chopsticks.
+# TODO: Replace None with the corresponding class name for your games.
+# 'h' should map to Stonehenge.
 playable_games = {'s': SubtractSquareGame,
-                  'c': ChopsticksGame}
+                  'h': StonehengeGame}
 
-# The strategies you are to implement.  See strategy.py, and then decide
-# how to modify this.
-usable_strategies = {'r': random_strategy,
-                     'i': interactive_strategy}
+# TODO: Replace None with the corresponding function names for your strategies.
+# 'mr' should map to your recursive implementation of minimax while
+# 'mi' should map to your iterative implementation of minimax
+usable_strategies = {'i': interactive_strategy,
+                     'ro': rough_outcome_strategy,
+                     'mr': recursive_minimax,
+                     'mi': iterative_minimax_strategy}
 
 
 class GameInterface:
     """
     A game interface for a two-player, sequential move, zero-sum,
     perfect-information game.
-
-    game - the  game to be played
-    p1_strategy - strategy for player 1
-    p2_strategy - strategy for player 2
     """
-    game: Any
-    p1_strategy: Callable[[Any], Any]
-    p2_strategy: Callable[[Any], Any]
 
     def __init__(self, game: Any, p1_strategy: Callable,
                  p2_strategy: Callable[[Any], Any]) -> None:
@@ -33,6 +42,13 @@ class GameInterface:
         Initialize this GameInterface, setting its active game to game, and
         using the strategies p1_strategy for Player 1 and p2_strategy for
         Player 2.
+
+        :param game: The game to be played.
+        :type game:
+        :param p1_strategy: The strategy for Player 1.
+        :type p1_strategy:
+        :param p2_strategy: The strategy for Play 2.
+        :type p2_strategy:
         """
         first_player = input("Type y if player 1 is to make the first move: ")
         is_p1_turn = False
